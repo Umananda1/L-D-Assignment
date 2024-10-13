@@ -1,0 +1,75 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void printArr(int arr[], int sz);
+
+int main() {
+  int n;
+  cout << "Enter the size of array: ";
+  cin >> n;
+
+  int *arr = new int[n];
+
+  cout << "\nEnter the elements of array..." << endl;
+  for (int i{}; i < n; i++) {
+    cout << "Element of index [" << i << "] : ";
+    cin >> arr[i];
+  }
+
+  cout << "\nArray : ";
+  printArr(arr, n);
+
+  vector<int> odd;
+  vector<int> even;
+
+  for (int i{}; i < n; i++) {
+    if (arr[i] % 2 == 0) {
+      even.push_back(arr[i]);
+    } else {
+      odd.push_back(arr[i]);
+    }
+  }
+
+  for (int i{}; i < even.size(); i++) {
+    arr[i] = even[i];
+  }
+
+  for (int i = even.size(); i < n; i++) {
+    arr[i] = odd[i - even.size()];
+  }
+
+  cout << "\nSegregated array: ";
+
+  printArr(arr, n);
+
+  delete[] arr;
+  return 0;
+}
+
+void printArr(int arr[], int sz) {
+  for (int i{}; i < sz; i++) {
+    if (i == sz - 1) {
+      cout << arr[i] << endl;
+    } else {
+      cout << arr[i] << ", ";
+    }
+  }
+}
+
+OUTPUT:--------
+
+ Enter the size of array: 7
+
+Enter the elements of array...
+Element of index [0] : 12
+Element of index [1] : 34
+Element of index [2] : 45
+Element of index [3] : 9
+Element of index [4] : 8
+Element of index [5] : 90
+Element of index [6] : 3
+
+Array : 12, 34, 45, 9, 8, 90, 3
+
+Segregated array: 12, 34, 8, 90, 45, 9, 3
